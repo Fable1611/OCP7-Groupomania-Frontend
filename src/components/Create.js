@@ -4,20 +4,20 @@ import { useHistory } from "react-router-dom";
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("mario");
+  const [author, setAuthor] = useState("");
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { title, body, author };
 
-    fetch("http://localhost:8000/blogs/", {
+    fetch("http://localhost:5000/api/blogs/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
-    }).then(() => {
-      // history.go(-1);
-      history.push("/");
+    }).then((res) => {
+      console.log(res);
+      history.push("/home");
     });
   };
 
@@ -39,10 +39,12 @@ const Create = () => {
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
         <label>Votre Image 🖼 :</label>
-        <select value={author} onChange={(e) => setAuthor(e.target.value)}>
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
-        </select>
+        <textarea
+          required
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        ></textarea>
+
         <button>🚀 C'est parti ! </button>
       </form>
     </div>

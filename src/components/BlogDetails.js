@@ -3,15 +3,16 @@ import useFetch from "../hooks/useFetch";
 
 const BlogDetails = () => {
   const { id } = useParams();
+
   const {
     data: blog,
     error,
     isPending,
-  } = useFetch("http://localhost:8000/blogs/" + id);
+  } = useFetch("http://localhost:5000/api/blogs/" + id);
   const history = useHistory();
 
-  const handleClick = () => {
-    fetch("http://localhost:8000/blogs/" + blog.id, {
+  const handleDelete = () => {
+    fetch("http://localhost:5000/api/blogs/" + id, {
       method: "DELETE",
     }).then(() => {
       history.push("/");
@@ -19,7 +20,7 @@ const BlogDetails = () => {
   };
 
   const handleEdit = () => {
-    fetch("http://localhost:8000/blogs/" + blog.id, {
+    fetch("http://localhost:5000/api/blogs/" + blog.id, {
       method: "DELETE",
     }).then(() => {
       history.push("/");
@@ -35,7 +36,7 @@ const BlogDetails = () => {
           <h2>{blog.title}</h2>
           <p>Written by {blog.author}</p>
           <div>{blog.body}</div>
-          <button onClick={handleClick}>Supprimer</button>
+          <button onClick={handleDelete}>Supprimer</button>
           <button onClick={handleEdit}>Modifier</button>
         </article>
       )}
