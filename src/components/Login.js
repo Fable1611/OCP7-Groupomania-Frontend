@@ -1,36 +1,40 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import PropTypes from "prop-types";
 
-export default function Login(props) {
+async function loginUser(credentials) {
+  return fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  }).then((data) => {
+    if (!data.ok) {
+      throw Error("Could not post the data to the server");
+    }
+    return data.json();
+  });
+}
+
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const [loginStatus, setLoginStatus] = useState(false);
 
-  // Fonction de Validation Frontend du mot de passe
-  function performValidation() {
-    return email.length > 0 && password.length > 0;
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = { email, password };
-
-    fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("Could not post the data to the server");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
-  }
+    const credentials = await loginUser({ email, password });
+    if (!credentials) {
+      setLoginStatus(false);
+      console.log("Pas de data !");
+      setLoginStatus(false);
+    } else {
+      setLoginStatus(true);
+      console.log("Merci beaucoup user :" + credentials.userId);
+      history.push("/home");
+    }
+  };
 
   return (
     <div className="create">
@@ -51,15 +55,18 @@ export default function Login(props) {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        <button id="mellon" disabled={!performValidation()}>
-          Mellon! 🧙‍♂️
-        </button>
+        <button className="mellon">Mellon! 🧙‍♂️</button>
       </form>
       <p>
         {" "}
         Pas encore de compte ?{" "}
         <Link to="/signup">C'est pourtant obligatoire.</Link>{" "}
       </p>
+      {loginStatus && <button className="mellon">BRAVO!</button>}
     </div>
   );
 }
+
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired,
+};
