@@ -46,7 +46,7 @@ export default function Signup(props) {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        <button disabled={!performValidation()}>Je suis ton père! 🤐</button>
+        <button>Je suis ton père! 🤐</button>
       </form>
     </div>
   );

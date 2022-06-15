@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 const LOGIN_URL = "/auth/login";
 
-export default function Login() {
+const Login = () => {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  // const [loginStatus, setLoginStatus] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -37,19 +36,15 @@ export default function Login() {
         JSON.stringify({ email, password }),
         {
           headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
+          withCredentials: true,
         }
       );
       console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.accessToken;
-      // const roles = response?.data?.roles;
+      const accessToken = response?.data?.token;
 
-      setAuth({ email, password, accessToken });
-
+      setAuth({ email, accessToken });
       setEmail("");
       setPassword("");
-      // setLoginStatus(true);
-
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -68,6 +63,7 @@ export default function Login() {
   return (
     <div className="create">
       <h2>Bienvenue sur votre forum d'entreprise</h2>
+      <h3>Veuillez vous identifier</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Votre email:</label>
         <input
@@ -101,7 +97,8 @@ export default function Login() {
         Pas encore de compte ?{" "}
         <Link to="/signup">C'est pourtant obligatoire 🤓.</Link>{" "}
       </p>
-      {/* {loginStatus && <button className="mellon">BRAVO!</button>} */}
     </div>
   );
-}
+};
+
+export default Login;

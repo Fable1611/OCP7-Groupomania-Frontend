@@ -12,6 +12,13 @@
   color: #4E5166;
   background: #FFD7D7;
 }
+
+.layout {
+
+  margin: 10%;
+
+}
+
 .navbar {
   padding: 20px;
   display: flex;
@@ -110,6 +117,12 @@
 
 .mellon {
   margin: 10px;
+}
+
+.logout {
+  color: white; 
+  background: #FD2D01;
+  border-radius: 8px; 
 }
 
 .blog-details {
