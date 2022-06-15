@@ -53,7 +53,7 @@ const Update = () => {
   return (
     <div className="create">
       <h2>Modifiez cet article, si vous l'osez :</h2>
-      <form onSubmit={handleUpdate} enctype="multipart/form-data" id="my-form">
+      <form onSubmit={handleUpdate} encType="multipart/form-data" id="my-form">
         <label>Votre Nouveau Titre :</label>
         <input
           type="text"

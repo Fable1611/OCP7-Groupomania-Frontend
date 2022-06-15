@@ -41,7 +41,7 @@ const Create = () => {
   return (
     <div className="create">
       <h2>Créez un nouveau post</h2>
-      <form onSubmit={handleSubmit} enctype="multipart/form-data" id="my-form">
+      <form onSubmit={handleSubmit} encType="multipart/form-data" id="my-form">
         <label>Votre Titre ✒ :</label>
         <input
           type="text"
