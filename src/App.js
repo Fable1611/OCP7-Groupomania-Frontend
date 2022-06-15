@@ -1,49 +1,38 @@
-import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Home from "./components/Home";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Create from "./components/Create";
-import BlogDetails from "./components/BlogDetails";
-import NotFound from "./components/NotFound";
-import { useState } from "react";
+import Navbar from "./components/Layout/Navbar";
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
+import Update from "./components/Update/Update";
+import Home from "./components/Layout/Home";
+import Create from "./components/Create/Create";
+import BlogDetails from "./components/Blog/BlogDetails";
+import NotFound from "./components/Layout/NotFound";
+import Layout from "./components/Layout/Layout";
+
+import RequireAuth from "./components/Auth/RequireAuth";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  // const [token, setToken] = useState();
-  // if (!token) {
-  //   return <Login setToken={setToken} />;
-  // }
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="content">
-          <Switch>
-            <Route exact path="/">
-              <Login />
-            </Route>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/home">
-              <Home />
-            </Route>
-            <Route path="/create">
-              <Create />
-            </Route>
-            <Route path="/blogs/:id">
-              <BlogDetails />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    </Router>
+    <main>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          {/* protected routes */}
+          <Route element={<RequireAuth />}>
+            <Route path="home" element={<Home />} />
+            <Route path="create" element={<Create />} />
+            <Route path="blogs/:id" element={<BlogDetails />} />
+            <Route path="update" element={<Update />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </main>
   );
 }
 

@@ -4,6 +4,7 @@ const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
     const abortCont = new AbortController();
@@ -19,6 +20,7 @@ const useFetch = (url) => {
         })
         .then((data) => {
           setIsPending(false);
+          setIsEmpty(false);
           setData(data);
           setError(null);
         })
@@ -28,6 +30,8 @@ const useFetch = (url) => {
           } else {
             // auto catches network / connection error
             setIsPending(false);
+            setIsEmpty(false);
+
             setError(err.message);
           }
         });
@@ -37,7 +41,7 @@ const useFetch = (url) => {
     return () => abortCont.abort();
   }, [url]);
 
-  return { data, isPending, error };
+  return { data, isPending, error, isEmpty };
 };
 
 export default useFetch;
