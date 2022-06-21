@@ -39,12 +39,19 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.token;
 
-      setAuth({ email, accessToken });
+      console.log(response.data);
+      const accessToken = response?.data?.token;
+      const role = response.data.role;
+      const userId = response.data.userId;
+
+      setAuth({ email, accessToken, role });
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("userId", userId);
+
       setEmail("");
       setPassword("");
+
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {

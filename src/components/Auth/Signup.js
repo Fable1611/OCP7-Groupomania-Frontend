@@ -1,18 +1,12 @@
 import { useState } from "react";
-// import { useHistory } from "react-router-dom";
 
 export default function Signup(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const history = useHistory();
-
-  // Fonction de Validation Frontend du mot de passe
-  function performValidation() {
-    return email.length > 0 && password.length > 0;
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
+
     const user = { email, password };
 
     fetch("http://localhost:5000/api/auth/signup", {
@@ -23,7 +17,6 @@ export default function Signup(props) {
       if (!res.ok) {
         throw Error("Could not post the data to the server");
       }
-      // history.push("/login");
     });
   }
 

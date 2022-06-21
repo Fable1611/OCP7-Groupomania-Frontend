@@ -10,6 +10,13 @@ import Layout from "./components/Layout/Layout";
 import RequireAuth from "./components/Auth/RequireAuth";
 import { Routes, Route } from "react-router-dom";
 
+const initialState = {
+  isAuthenticated: false,
+  email: null,
+  token: null,
+  role: null,
+};
+
 function App() {
   return (
     <Routes>
