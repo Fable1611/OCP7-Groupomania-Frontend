@@ -4,13 +4,15 @@ const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const [isEmpty, setIsEmpty] = useState(true);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const abortCont = new AbortController();
 
     setTimeout(() => {
-      fetch(url, { signal: abortCont.signal })
+      // fetch(url, { signal: abortCont.signal })
+      fetch(url, { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => {
           if (!res.ok) {
             // error coming back from server
@@ -19,8 +21,8 @@ const useFetch = (url) => {
           return res.json();
         })
         .then((data) => {
+          console.log(data);
           setIsPending(false);
-          setIsEmpty(false);
           setData(data);
           setError(null);
         })
@@ -30,7 +32,6 @@ const useFetch = (url) => {
           } else {
             // auto catches network / connection error
             setIsPending(false);
-            setIsEmpty(false);
 
             setError(err.message);
           }
@@ -41,7 +42,7 @@ const useFetch = (url) => {
     return () => abortCont.abort();
   }, [url]);
 
-  return { data, isPending, error, isEmpty };
+  return { data, isPending, error };
 };
 
 export default useFetch;
