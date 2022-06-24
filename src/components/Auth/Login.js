@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuthContext from "../../hooks/useAuthContext";
 
 import axios from "../../api/axios";
 const LOGIN_URL = "/auth/login";
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const appContext = useAuthContext();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,13 +41,14 @@ const Login = () => {
       );
 
       console.log(response.data);
-      const accessToken = response?.data?.token;
-      const role = response.data.role;
-      const userId = response.data.userId;
+      const user = {};
+      user.accessToken = response?.data?.token;
+      user.role = response.data.role;
+      user.userId = response.data.userId;
 
-      setAuth({ email, accessToken, role });
-      localStorage.setItem("token", accessToken);
-      localStorage.setItem("userId", userId);
+      appContext.setUserInfo(user);
+
+      localStorage.setItem("token", user.accessToken);
 
       setEmail("");
       setPassword("");
