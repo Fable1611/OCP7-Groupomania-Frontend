@@ -1,14 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import { useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
 import logo from "../../img/logowhite.png";
 
+import useAuthContext from "../../hooks/useAuthContext";
+
 const Navbar = () => {
-  const { setAuth } = useContext(AuthContext);
+  const appContext = useAuthContext();
   const navigate = useNavigate();
+
   const logout = async () => {
-    setAuth({});
+    appContext.setUserInfo(null);
+    localStorage.removeItem("token");
     navigate("/");
   };
 
