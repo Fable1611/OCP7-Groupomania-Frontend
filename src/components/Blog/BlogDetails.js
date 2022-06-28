@@ -1,17 +1,91 @@
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import { AiOutlineLike } from "react-icons/ai";
-import { useState } from "react";
-import useFetch from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const BlogDetails = () => {
+  //stockage du token pour envoyer des headers dans la requete
+  const token = localStorage.getItem("token");
+
+  // recuperation du contexte pour les differentes requetes
+  const appContext = useAuthContext();
+  const userIdLoggedIn = appContext.userInfo.userId;
+  const userRole = appContext.userInfo.roles;
+
+  //recuperation des params pour le ID du fetcg
   const { id } = useParams();
 
-  //Fonction pour recuperer des articles
-  const {
-    data: blog,
-    error,
-    isPending,
-  } = useFetch("http://localhost:5000/api/blogs/" + id);
+  //les states de la page qui sont utilises dans les differentes fonctions et pour le rendering
+  const [likeValue, setLikeValue] = useState();
+  const [rights, setRights] = useState();
+  const [isLiked, setIsLiked] = useState(false);
+  const [blogData, setBlogData] = useState();
+
+  //Fetch qui va chercher les donnes du blog pour la page
+  useEffect(() => {
+    axios({
+      url: "http://localhost:5000/api/blogs/" + id,
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((data) => {
+      setBlogData(data.data);
+      console.log(data.data);
+      setLikeValue(data.data.likes);
+      setIsLiked(CheckIsLiked(data.data));
+      setRights(CheckRights(data.data));
+    });
+  }, []);
+
+  //Function retourne une valeur booleene pour savoir si l'utilisateur a deja like, ou non, ce blog
+  const CheckIsLiked = (blogList) => {
+    const likesTable = blogList.userLiked;
+
+    if (likesTable.includes(userIdLoggedIn)) {
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
+  };
+
+  //Function retourne une valeur booleene pour savoir si l'utilisateur a les droits de modifier ou supprimer ce blog car il est admin ou il l'a ecrit
+  const CheckRights = (blogList) => {
+    const userIdAPI = blogList.userId;
+
+    if (userIdAPI === userIdLoggedIn || userRole === 1945) {
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
+  };
+
+  //Fonction pour liker les blogs
+  const handleLike = () => {
+    let apiValue;
+
+    if (isLiked === false) {
+      const likes = likeValue + 1;
+      setLikeValue(likes);
+      setIsLiked(true);
+      apiValue = 1;
+    } else {
+      setIsLiked(false);
+      const likes = likeValue - 1;
+      setLikeValue(likes);
+      apiValue = 0;
+    }
+
+    axios({
+      url: "http://localhost:5000/api/blogs/like",
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      data: { userId: userIdLoggedIn, blogId: id, likeValue: apiValue },
+    });
+  };
 
   //Fonction pour stocker les elements dans le local storage afin de les updater
   const setData = (blog) => {
@@ -22,7 +96,7 @@ const BlogDetails = () => {
     localStorage.setItem("author", author);
   };
 
-  //Fonction pour supprimer des articles
+  //Fonction pour supprimer des articles de la BDD
   const handleDelete = () => {
     const token = localStorage.getItem("token");
 
@@ -36,24 +110,31 @@ const BlogDetails = () => {
 
   return (
     <div className="blog-details">
-      {isPending && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {blog && (
+      {blogData && (
         <article>
-          <h2>{blog.title}</h2>
-          <p>Écrit par {blog.author}</p>w<div>{blog.body}</div>
+          <h2>{blogData.title}</h2>
+          <p>Écrit par {blogData.author}</p>
           <div>
-            <AiOutlineLike />
-            <p>{blog.likes}</p>
+            <button onClick={handleLike}>Je Like 👍 {likeValue}</button>
           </div>
+          <div>{blogData.body}</div>
+
           <div>
-            <img className="image-container" src={blog.imageUrl}></img>
+            <img className="image-container" src={blogData.imageUrl}></img>
           </div>
-          <button className="blog-details" onClick={handleDelete}>
+          <button
+            className="blog-details"
+            onClick={handleDelete}
+            disabled={!rights}
+          >
             Supprimer
           </button>
           <Link to="/update">
-            <button className="blog-details" onClick={() => setData(blog)}>
+            <button
+              className="blog-details"
+              onClick={() => setData(blogData)}
+              disabled={!rights}
+            >
               Modifier
             </button>
           </Link>
