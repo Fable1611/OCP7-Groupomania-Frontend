@@ -1,10 +1,13 @@
 import { useState } from "react";
 // import { useHistory } from "react-router-dom";
+import useAuthContext from "../../hooks/useAuthContext";
 
 import axios from "axios";
 
 const Create = () => {
   const token = localStorage.getItem("token");
+  const appContext = useAuthContext();
+  const userId = appContext.userInfo.userId;
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -23,6 +26,7 @@ const Create = () => {
     formData.append("body", body);
     formData.append("author", author);
     formData.append("IMAGE", file);
+    formData.append("userId", userId);
 
     axios({
       url: "http://localhost:5000/api/blogs/",

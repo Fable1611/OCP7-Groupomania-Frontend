@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 /* base styles */
 * {
   margin: 0;
-  font-family: "Quicksand";
+  font-family: 'Lato', sans-serif;
   color: white;
   background-color: #4E5166;
 }
@@ -13,17 +13,12 @@
   background: #FFD7D7;
 }
 
-.layout {
-
-  margin: 10%;
-
-}
-
+/*NAVBAR Styles Desktop*/
 .navbar {
   padding: 20px;
   display: flex;
   align-items: center;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
@@ -31,7 +26,9 @@
   color: #FD2D01;
 }
 .navbar .links {
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .navbar a {
   margin-left: 16px;
@@ -41,8 +38,12 @@
 .navbar a:hover {
   color: #FD2D01;
 }
+.navbar button {
+  margin-left: 20px;
+
+}
 .content {
-  max-width: 600px;
+  max-width: 700px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -58,7 +59,7 @@
 }
 .blog-preview h2 {
   font-size: 20px;
-  color: #FD2D01;
+  color: #FFD7D7;
   margin-bottom: 8px;
 }
 .blog-preview a{
@@ -66,17 +67,32 @@
 }
 
 /* blog details page */
+.blog-details {
+  border: solid 3px white ;
+  border-radius: 25px ;
+  padding: 10px;
+}
+
 .blog-details h2 {
   font-size: 20px;
-  color: #FD2D01;
+  color: #FFD7D7;
   margin-bottom: 10px;
 }
 .blog-details div {
   margin: 20px 0;
 }
 .blog-details button {
-  background: #FD2D01;
-  color: #fff;
+  background: #FD2D01 ;
+  color: white;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 50%;
+}
+.blog-details button:disabled {
+  background: grey ;
+  color: black;
   border: 0;
   padding: 8px;
   border-radius: 8px;
@@ -134,4 +150,52 @@
   object-fit: cover;
   max-width: 50%;
   height: 150px;
+}
+
+
+
+@media only screen and (max-width: 768px)
+{
+  .navbar {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .navbar h1 {
+    color: #FD2D01;
+  }
+  .navbar .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .navbar a {
+    margin: 2px;
+    text-decoration: none;
+    padding: 6px;
+  }
+  .navbar a:hover {
+    color: #FD2D01;
+  }
+
+  .navbar button {
+    margin: 2px;
+    margin-top: 5px;
+  
+  }
+
+
+  .content {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+ 
+
 }

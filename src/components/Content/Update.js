@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 // import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
 
 import axios from "axios";
 
 const Update = () => {
+  // Variables
   const token = localStorage.getItem("token");
+  const appContext = useAuthContext();
+  const userId = appContext.userInfo.userId;
+  const userRole = appContext.userInfo.role;
 
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
@@ -35,6 +40,8 @@ const Update = () => {
     formData.append("body", body);
     formData.append("author", author);
     formData.append("IMAGE", file);
+    formData.append("userId", userId);
+    formData.append("userRole", userRole);
 
     axios({
       url: "http://localhost:5000/api/blogs/" + id,
