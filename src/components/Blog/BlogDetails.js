@@ -1,10 +1,12 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiOutlineLike } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const BlogDetails = () => {
+  const navigate = useNavigate();
+
   //stockage du token pour envoyer des headers dans la requete
   const token = localStorage.getItem("token");
 
@@ -54,7 +56,7 @@ const BlogDetails = () => {
   const CheckRights = (blogList) => {
     const userIdAPI = blogList.userId;
 
-    if (userIdAPI === userIdLoggedIn || userRole === 1945) {
+    if (userIdAPI === userIdLoggedIn || userRole == 1945) {
       console.log(true);
       return true;
     } else {
@@ -105,6 +107,7 @@ const BlogDetails = () => {
       headers: { Authorization: `Bearer ${token}` },
     }).then(() => {
       console.log("Article supprime!");
+      navigate("/", { replace: true });
     });
   };
 
@@ -115,7 +118,15 @@ const BlogDetails = () => {
           <h2>{blogData.title}</h2>
           <p>Écrit par {blogData.author}</p>
           <div>
-            <button onClick={handleLike}>Je Like 👍 {likeValue}</button>
+            <button
+              onClick={handleLike}
+              style={{
+                backgroundColor: isLiked ? "green" : "#FD2D01",
+                color: isLiked ? "white" : "white",
+              }}
+            >
+              Je Like 👍 {likeValue}
+            </button>
           </div>
           <div>{blogData.body}</div>
 

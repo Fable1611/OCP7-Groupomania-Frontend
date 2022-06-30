@@ -13,6 +13,39 @@
   background: #FFD7D7;
 }
 
+/* Classes pour le champs de signup */
+.signup {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.valid {
+  color: green;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: #FFD7D7;
+  margin-left: 0.25rem;
+  margin-bottom: 2px;
+  vertical-align: bottom;
+  font-size: 12px;
+}
+
+#signup-form .btn-signup {
+  margin-top: 8px;
+  background-color: green;
+}
+#signup-form .btn-signup-disabled {
+  margin-top: 8px;
+  background-color: #FD2D01;
+}
+
 /*NAVBAR Styles Desktop*/
 .navbar {
   padding: 20px;
@@ -38,10 +71,30 @@
 .navbar a:hover {
   color: #FD2D01;
 }
+
+
 .navbar button {
   margin-left: 20px;
-
 }
+.logout {
+  color: white; 
+  background: #FD2D01;
+  border: 0px ;
+  border-radius: 8px; 
+  height: 31px;
+}
+.logout:hover {
+  color: black; 
+  background: #FD2D01;
+  border-radius: 8px; 
+  height: 31px;
+}
+.login {
+  color: white; 
+  background: green;
+  border-radius: 8px; 
+}
+
 .content {
   max-width: 700px;
   margin: 40px auto;
@@ -65,6 +118,19 @@
 .blog-preview a{
   text-decoration: none;
 }
+
+.blog-preview button{
+  border-radius: 25px;
+  background-color: #FFD7D7;
+  color: black;
+}
+
+.AiLike {
+  background-color: #FFD7D7;
+  
+}
+
+
 
 /* blog details page */
 .blog-details {
@@ -135,11 +201,7 @@
   margin: 10px;
 }
 
-.logout {
-  color: white; 
-  background: #FD2D01;
-  border-radius: 8px; 
-}
+
 
 .blog-details {
   margin: 5px;
@@ -165,22 +227,12 @@
     margin: 0 auto;
     border-bottom: 1px solid #f2f2f2;
   }
-  .navbar h1 {
-    color: #FD2D01;
-  }
+
   .navbar .links {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-  }
-  .navbar a {
-    margin: 2px;
-    text-decoration: none;
-    padding: 6px;
-  }
-  .navbar a:hover {
-    color: #FD2D01;
   }
 
   .navbar button {
@@ -188,7 +240,6 @@
     margin-top: 5px;
   
   }
-
 
   .content {
     max-width: 700px;

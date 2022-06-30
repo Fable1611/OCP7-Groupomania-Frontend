@@ -1,10 +1,13 @@
 import { useState } from "react";
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import useAuthContext from "../../hooks/useAuthContext";
 
 import axios from "axios";
 
 const Create = () => {
+  const navigate = useNavigate();
+
   const token = localStorage.getItem("token");
   const appContext = useAuthContext();
   const userId = appContext.userInfo.userId;
@@ -35,6 +38,7 @@ const Create = () => {
       data: formData,
     }).then((res) => {
       console.log(res);
+      navigate("/", { replace: true });
     });
   };
 
