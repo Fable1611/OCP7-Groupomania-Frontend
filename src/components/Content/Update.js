@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
 
 import axios from "axios";
 
 const Update = () => {
+  const navigate = useNavigate();
+
   // Variables
   const token = localStorage.getItem("token");
   const appContext = useAuthContext();
@@ -49,7 +51,8 @@ const Update = () => {
       headers: { Authorization: `Bearer ${token}` },
       data: formData,
     }).then((res) => {
-      console.log(res);
+      console.log("Votre Blog a ete modifie");
+      navigate("/", { replace: true });
     });
   };
 
