@@ -4,6 +4,8 @@ import { AiOutlineLike } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
 
+//Compostant qui détaille toutes les informations du Blog et permet de le modifier ou de le supprimer
+
 const BlogDetails = () => {
   const navigate = useNavigate();
 
@@ -67,6 +69,7 @@ const BlogDetails = () => {
 
   //Fonction pour liker les blogs
   const handleLike = () => {
+    //apiValue va envoyer 0 ou 1 pour la gestion des likes, cette valeur sera utilisée dans le Backend
     let apiValue;
 
     if (isLiked === false) {

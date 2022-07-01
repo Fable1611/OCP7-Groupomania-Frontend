@@ -6,6 +6,7 @@ const RequireAuth = () => {
   const location = useLocation();
   console.log(appContext);
 
+  //Si le appcontext contient des UserInfo, alors on dirige le user vers Outlet, sinon on le ramène vers la page de login
   return appContext?.userInfo ? (
     <Outlet />
   ) : (

@@ -1,15 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-
 import logo from "../../img/logowhite.png";
-
 import useAuthContext from "../../hooks/useAuthContext";
 
 const Navbar = () => {
+  //importation du contexte
   const appContext = useAuthContext();
-
   const isAuthenticated = appContext.isAuthenticated;
+
   const navigate = useNavigate();
 
+  // Fonction de Logout qui permet de reset le state de USER avec la valeur null, et nettoyer le local storage et de renvoyer l'utilisateur vers la page Login
   const logout = async () => {
     appContext.setUserInfo(null);
     localStorage.removeItem("token");
@@ -35,7 +35,7 @@ const Navbar = () => {
           className={isAuthenticated ? "logout" : "hide"}
           onClick={logout}
         >
-          LogOut
+          Log Out
         </button>
       </div>
     </nav>

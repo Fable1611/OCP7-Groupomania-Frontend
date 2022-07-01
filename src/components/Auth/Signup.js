@@ -4,6 +4,8 @@ import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
 
 export default function Signup(props) {
   const navigate = useNavigate();
+
+  //Regex qui vont définir la difficulté du Mot de Passe et le contenu de l'Email, ces données sont aussi protégées dans le backend avec un middleware
   const EMAIL_REGEX = /\S+@\S+\.\S+/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,24}$/;
 
@@ -25,6 +27,7 @@ export default function Signup(props) {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  //useEffet qui gère l'apparition de messages d'erreur ou de succèes en fonction des states déclenchés. Si le focus de l'utilisateur n'est plus sur un champs, alors l'erreur disparait.
   useEffect(() => {
     emailRef.current.focus();
   }, []);
@@ -50,60 +53,7 @@ export default function Signup(props) {
     setErrMsg("");
   }, [email, password, matchPwd]);
 
-  // // function DisplayErrorsInForm() {
-  // //   const firstNameInput = document.getElementById("firstName");
-  // //   const lastNameInput = document.getElementById("lastName");
-  // //   const addressInput = document.getElementById("address");
-  // //   const cityInput = document.getElementById("city");
-  // //   const emailInput = document.getElementById("email");
-
-  // //   let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
-  // //   let lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
-  // //   let addressErrorMsg = document.getElementById("addressErrorMsg");
-  // //   let cityErrorMsg = document.getElementById("cityErrorMsg");
-  // //   let emailErrorMsg = document.getElementById("emailErrorMsg");
-
-  // //   const formulaire = document.getElementById("cartForm");
-
-  // //   formulaire.addEventListener("submit", (e) => {
-  // //     let errorMessages = {
-  // //       firstName: "",
-  // //       lastName: "",
-  // //       city: "",
-  // //       email: "",
-  // //     };
-
-  // //     if (!firstNameInput.value.match(/^[A-Za-z]+$/)) {
-  // //       errorMessages.firstName = "Veuillez n'utiliser que des lettres :)";
-  // //     }
-  // //     if (!lastNameInput.value.match(/^[A-Za-z]+$/)) {
-  // //       errorMessages.lastName = "Veuillez n'utiliser que des lettres :)";
-  // //     }
-  // //     if (!cityInput.value.match(/^[A-Za-z]+$/)) {
-  // //       errorMessages.city = "Veuillez n'utiliser que des lettres :)";
-  // //     }
-  // //     if (!emailInput.value.match(/\S+@\S+\.\S+/)) {
-  // //       errorMessages.email = "Veuillez renseigner une addresse email correcte";
-  // //     }
-
-  // //     if (
-  // //       errorMessages.firstName != "" ||
-  // //       errorMessages.lastName != "" ||
-  // //       errorMessages.city != "" ||
-  // //       errorMessages.email != ""
-  // //     ) {
-  // //       e.preventDefault();
-  // //       firstNameErrorMsg.innerText = errorMessages.firstName;
-  // //       lastNameErrorMsg.innerText = errorMessages.lastName;
-  // //       cityErrorMsg.innerText = errorMessages.city;
-  // //       emailErrorMsg.innerText = errorMessages.email;
-  // //     } else {
-  // //       e.preventDefault();
-  // //       CreateObjectOrder();
-  // //     }
-  // //   });
-  // // }
-
+  //Fonction pour poster le nouvel User à l'API, et naviguer vers la page de login.
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -123,6 +73,7 @@ export default function Signup(props) {
     });
   }
 
+  //Les states comme ValidEmail viennent déclancher l'apparition de messages d'erreur ainsi que certaines classes.
   return (
     <div className="create">
       <p ref={errRef}>{errMsg}</p>

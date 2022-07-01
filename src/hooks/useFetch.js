@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
+//Hook qui permet de fetch les données à l'API en lui passant un URL en Props
 const useFetch = (url) => {
+  //States qui seront retournés par le Hook vers les composants qui les appelle
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +12,10 @@ const useFetch = (url) => {
     const abortCont = new AbortController();
 
     // fetch(url, { signal: abortCont.signal })
-    fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+    fetch(url, {
+      signal: abortCont.signal,
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => {
         if (!res.ok) {
           // error coming back from server
