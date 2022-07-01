@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import useAuthContext from "../../hooks/useAuthContext";
-
-import axios from "axios";
 
 const Create = () => {
   const navigate = useNavigate();
 
+  //Récupération du contexte et du stoken, stockage des données du contexte localement
   const token = localStorage.getItem("token");
   const appContext = useAuthContext();
   const userId = appContext.userInfo.userId;
 
+  //States qui seront stockés dans un FORMDATA pour être envoyé à l'API et stockés dans la Base de Données
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
@@ -21,6 +22,7 @@ const Create = () => {
     setFile(e.target.files[0]);
   };
 
+  //Fonction d'envoi des données à l'API, création du Formdata et Post.Redirection vers la page Home si succès.
   const handleSubmit = (e) => {
     e.preventDefault();
 

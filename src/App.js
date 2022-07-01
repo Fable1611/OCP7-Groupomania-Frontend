@@ -1,4 +1,8 @@
 import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// Importation des composants de l'application
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import Update from "./components/Content/Update";
@@ -7,18 +11,20 @@ import Create from "./components/Content/Create";
 import BlogDetails from "./components/Blog/BlogDetails";
 import NotFound from "./components/Layout/NotFound";
 import Layout from "./components/Layout/Layout";
-import React, { useState, useEffect } from "react";
 
+// Importation des du contexte pour l'authentification/autorisation
 import AuthContext, { AuthProvider } from "./context/AuthProvider";
-
 import RequireAuth from "./components/Auth/RequireAuth";
-import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  const [isLoading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  //Importation du token dans le local storage pour faire des appels à l'API
   const myToken = localStorage.getItem("token");
 
+  //Creation des states qui vont permettre de contrôler l'asynchrone de la fonction et de valider si un User est connecté pour afficher le contenu approprié
+  const [isLoading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  //S'il y a un token dans le local storage, alors un appel a l'API sera fait pour le valider, et si c'est le cas, le state de USER et LOADING seront MAJ
   useEffect(() => {
     if (myToken) {
       axios({
@@ -43,8 +49,10 @@ function App() {
     }
   }, []);
 
+  //Si le state de Loading est false, le reste de l'application peut être rendered
   return (
     !isLoading && (
+      //Valeurs de base du context provider qui seront utilisées dans toute l'application
       <AuthContext.Provider
         value={{
           isAuthenticated: !!user,

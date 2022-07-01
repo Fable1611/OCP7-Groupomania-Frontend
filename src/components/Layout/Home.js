@@ -1,6 +1,7 @@
 import BlogList from "../Blog/BlogList";
 import useFetch from "../../hooks/useFetch";
 const Home = () => {
+  //Utilisation du Hook UseFetch pour récupérer les données et les déstructurer : le composant BlogList est appelé quand les données arrivent
   const {
     error,
     isPending,

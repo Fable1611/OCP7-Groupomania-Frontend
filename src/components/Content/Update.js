@@ -8,18 +8,20 @@ import axios from "axios";
 const Update = () => {
   const navigate = useNavigate();
 
-  // Variables
+  // Importation des du contexte pour l'authentification/autorisation
   const token = localStorage.getItem("token");
   const appContext = useAuthContext();
   const userId = appContext.userInfo.userId;
   const userRole = appContext.userInfo.role;
 
+  //Création des States qui vont correspondre au formulaire
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [file, setFile] = useState(null);
 
+  //Au render de la page, on vient récupérer les différents éléments du Local Storage pour remplir les champs du formulaire. Solution alternative à l'appel à l'API
   useEffect(() => {
     setId(localStorage.getItem("id"));
     setAuthor(localStorage.getItem("author"));
@@ -31,6 +33,7 @@ const Update = () => {
     setFile(e.target.files[0]);
   };
 
+  //Similaire à la création d'un nouveau blog, on vient créer un forData qui sera ensuite posté à l'API avec une requête de pull
   const handleUpdate = (e) => {
     console.log(id);
     e.preventDefault();

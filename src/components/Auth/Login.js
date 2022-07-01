@@ -8,6 +8,7 @@ const LOGIN_URL = "/auth/login";
 const Login = () => {
   const appContext = useAuthContext();
 
+  //Données pour la navigation et la redirection
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -15,6 +16,7 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
+  //Creation des states password et User qui vont correspondre au formulaire
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -30,6 +32,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //Appel à l'API avec les données du formulaire
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -41,13 +44,15 @@ const Login = () => {
       );
 
       console.log(response.data);
+
+      //Création d'un objet USER qui sera composé des informations retournées par l'API
       const user = {};
       user.accessToken = response?.data?.token;
       user.role = response.data.role;
       user.userId = response.data.userId;
-
       appContext.setUserInfo(user);
 
+      //Envoi du Token dans le local storage pour réutilisation ultérieure
       localStorage.setItem("token", user.accessToken);
 
       setEmail("");
