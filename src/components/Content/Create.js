@@ -32,6 +32,7 @@ const Create = () => {
     formData.append("author", author);
     formData.append("IMAGE", file);
     formData.append("userId", userId);
+    formData.append("alt", title);
 
     axios({
       url: "http://localhost:5000/api/blogs/",
@@ -46,11 +47,12 @@ const Create = () => {
 
   return (
     <div className="create">
-      <h2>Créez un nouveau post</h2>
+      <h1>Créez un nouveau post</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data" id="my-form">
         <label>Votre Titre ✒ :</label>
         <input
           type="text"
+          aria-label="titre"
           required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -60,12 +62,14 @@ const Create = () => {
         <textarea
           required
           value={body}
+          aria-label="texte"
           onChange={(e) => setBody(e.target.value)}
           name="body"
         ></textarea>
         <label>Votre Nom d'Auteur 🦹‍♂️:</label>
         <textarea
           required
+          aria-label="auteur"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           name="author"
@@ -74,6 +78,7 @@ const Create = () => {
         <label>Une belle image svp ! 🎉</label>
         <input
           type="file"
+          aria-label="image"
           accept="image/png, image/jpeg"
           name="IMAGE"
           id="image"

@@ -4,8 +4,8 @@
 * {
   margin: 0;
   font-family: 'Lato', sans-serif;
-  color: white;
-  background-color: #4E5166;
+  color: black;
+  background-color: white;
 }
 
 * ::selection {
@@ -30,7 +30,7 @@
 }
 
 .invalid {
-  color: #FFD7D7;
+  color: black;
   margin-left: 0.25rem;
   margin-bottom: 2px;
   vertical-align: bottom;
@@ -44,6 +44,7 @@
 #signup-form .btn-signup-disabled {
   margin-top: 8px;
   background-color: #FD2D01;
+  color: black;
 }
 
 /*NAVBAR Styles Desktop*/
@@ -77,14 +78,15 @@
   margin-left: 20px;
 }
 .logout {
-  color: white; 
+  color: black; 
   background: #FD2D01;
+  font-weight: bold;
   border: 0px ;
   border-radius: 8px; 
   height: 31px;
 }
 .logout:hover {
-  color: black; 
+ 
   background: #FD2D01;
   border-radius: 8px; 
   height: 31px;
@@ -112,7 +114,7 @@
 }
 .blog-preview h2 {
   font-size: 20px;
-  color: #FFD7D7;
+  color: #FD2D01;
   margin-bottom: 8px;
 }
 .blog-preview a{
@@ -121,12 +123,12 @@
 
 .blog-preview button{
   border-radius: 25px;
-  background-color: #FFD7D7;
+  background-color: #FD2D01;
   color: black;
 }
 
 .AiLike {
-  background-color: #FFD7D7;
+  background-color: #FD2D01;
   
 }
 
@@ -149,7 +151,8 @@
 }
 .blog-details button {
   background: #FD2D01 ;
-  color: white;
+  color: black;
+
   border: 0;
   padding: 8px;
   border-radius: 8px;
@@ -190,7 +193,7 @@
 }
 .create button {
   background: #FD2D01;
-  color: #fff;
+  color: black;
   border: 0;
   padding: 8px;
   border-radius: 8px;

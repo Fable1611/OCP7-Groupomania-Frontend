@@ -59,7 +59,7 @@ const BlogDetails = () => {
   const CheckRights = (blogList) => {
     const userIdAPI = blogList.userId;
 
-    if (userIdAPI === userIdLoggedIn || userRole === 1945) {
+    if (userRole === 1945 || userIdAPI === userIdLoggedIn) {
       console.log(true);
       return true;
     } else {
@@ -119,14 +119,14 @@ const BlogDetails = () => {
     <div className="blog-details">
       {blogData && (
         <article>
-          <h2>{blogData.title}</h2>
+          <h1>{blogData.title}</h1>
           <p>Écrit par {blogData.author}</p>
           <div>
             <button
               onClick={handleLike}
               style={{
                 backgroundColor: isLiked ? "green" : "#FD2D01",
-                color: isLiked ? "white" : "white",
+                color: isLiked ? "black" : "black",
               }}
             >
               Je Like 👍 {likeValue}
@@ -135,7 +135,11 @@ const BlogDetails = () => {
           <div>{blogData.body}</div>
 
           <div>
-            <img className="image-container" src={blogData.imageUrl}></img>
+            <img
+              className="image-container"
+              src={blogData.imageUrl}
+              alt={blogData.alt}
+            ></img>
           </div>
           <button
             className="blog-details"

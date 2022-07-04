@@ -75,8 +75,8 @@ const Login = () => {
 
   return (
     <div className="create">
-      <h2>Bienvenue sur votre forum d'entreprise</h2>
-      <h3>Veuillez vous identifier</h3>
+      <h1>Bienvenue sur votre forum d'entreprise</h1>
+      <h2>Veuillez vous identifier</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Votre email:</label>
         <input
