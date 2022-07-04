@@ -15,9 +15,9 @@ const BlogDetails = () => {
   // recuperation du contexte pour les differentes requetes
   const appContext = useAuthContext();
   const userIdLoggedIn = appContext.userInfo.userId;
-  const userRole = appContext.userInfo.roles;
+  const userRole = appContext.userInfo.role;
 
-  //recuperation des params pour le ID du fetcg
+  //recuperation des params pour le ID du fetch
   const { id } = useParams();
 
   //les states de la page qui sont utilises dans les differentes fonctions et pour le rendering
@@ -35,6 +35,7 @@ const BlogDetails = () => {
     }).then((data) => {
       setBlogData(data.data);
       console.log(data.data);
+
       setLikeValue(data.data.likes);
       setIsLiked(CheckIsLiked(data.data));
       setRights(CheckRights(data.data));
@@ -58,7 +59,7 @@ const BlogDetails = () => {
   const CheckRights = (blogList) => {
     const userIdAPI = blogList.userId;
 
-    if (userIdAPI === userIdLoggedIn || userRole == 1945) {
+    if (userIdAPI === userIdLoggedIn || userRole === 1945) {
       console.log(true);
       return true;
     } else {
