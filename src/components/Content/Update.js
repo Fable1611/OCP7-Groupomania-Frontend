@@ -46,6 +46,7 @@ const Update = () => {
     formData.append("author", author);
     formData.append("IMAGE", file);
     formData.append("userId", userId);
+    formData.append("alt", title);
     formData.append("userRole", userRole);
 
     axios({

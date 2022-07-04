@@ -78,7 +78,7 @@ export default function Signup(props) {
     <div className="create">
       <p ref={errRef}>{errMsg}</p>
 
-      <h2>Créez votre compte, c'est obligatoire 😇</h2>
+      <h1>Créez votre compte, c'est obligatoire 😇</h1>
       <form id="signup-form" onSubmit={handleSubmit}>
         <label htmlFor="email">
           Votre email: <FaCheck className={validEmail ? "valid" : "hide"} />
@@ -98,7 +98,7 @@ export default function Signup(props) {
         <p className={validEmail || !email ? "hide" : "invalid"}>
           <FaInfoCircle /> Veuillez rentrer un email valide 👮‍♂️
         </p>
-        <label>
+        <label htmlFor="password">
           Votre mot de passe:
           <FaCheck className={validPassword ? "valid" : "hide"} />
           <FaTimes
@@ -107,6 +107,7 @@ export default function Signup(props) {
         </label>
         <input
           type="password"
+          aris-label="password"
           id="password"
           required
           value={password}
